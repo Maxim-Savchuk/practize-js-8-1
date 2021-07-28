@@ -10,29 +10,31 @@ async function getFruit(name) {
     apple: '🍎',
   };
 
-  return new Promise(resolve => setTimeout(() =>
-    resolve(fruits[name]), 500
-  ));
-
-  // return new Promise((resolve, reject) =>
-  //   setTimeout(() => resolve(fruits[name]), 500),
-  // );
+  return new Promise((resolve, reject) =>
+    setTimeout(() => resolve(fruits[name]), 500),
+  );
 }
 
 async function aMakeSmoothie() {
-  const apple = await getFruit('apple');
-  console.log(apple);
+  try {
+    const apple = getFruit('apple');
+    const kiwi = getFruit('kiwi');
+    const berry = getFruit('strawberry');
 
-  const kiwi = await getFruit('kiwi');
-  console.log(kiwi);
+    const fruits = await Promise.all([apple, kiwi, berry]);
+   
+    return fruits;
+  } catch (error) {
+    console.log('Ошибка ' + error);
+  }
 }
 
-aMakeSmoothie();
+// aMakeSmoothie().then(fruits => console.log(fruits));
 
-function makeSmoothie() {
-  getFruit('apple').then(apple => console.log(apple));
-  getFruit('kiwi').then(kiwi=>console.log(kiwi));
-}
+// function makeSmoothie() {
+//   getFruit('apple').then(apple => console.log(apple));
+//   getFruit('kiwi').then(kiwi=>console.log(kiwi));
+// }
 
 
 
